@@ -4,6 +4,9 @@ import Home from './pages/Home/Home';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SearchPage from './pages/SearchPage/SearchPage';
 
+
+// Google-Api-Key = AIzaSyC4yWpBlR5i2k3mFE1tpi7-9_KzanCB3xI
+
 function App() {
   return (
     <div className="App">

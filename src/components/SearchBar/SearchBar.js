@@ -15,13 +15,14 @@ const SearchBar = ({ hideButtons = false }) => {
 
     const search = e => {
         e.preventDefault();
-        console.log(Input);
+        // console.log(Input);
 
         dispatch({
             type: actionType.SET_SEARCH_TERM,
             term: Input,
         })
 
+        // Render the Search Result page
         navigate('/search');
     }
 
