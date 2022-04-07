@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import useGoogleSearch from '../../API_Keys/useGoogleSearch';
 import { useThisState } from '../../ContextApi/StateProvider';
 import './SearchPage.css';
 import Response from '../../API_Keys/response';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import SearchIcon from '@mui/icons-material/Search';
 import DescriptionIcon from '@mui/icons-material/Description';
@@ -12,13 +12,17 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import RoomIcon from '@mui/icons-material/Room';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import PaginationButton from '../../components/PaginationButton/PaginationButton';
 
 const SearchPage = () => {
-    const [{ term }, dispatch] = useThisState();
+    // const [{ term }, dispatch] = useThisState();
     // const Search = term;
 
-    //Live API CCode
-    const { data } = useGoogleSearch(term);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const term = searchParams.get('term');
+    const start = searchParams.get('start');
+    const context = { term, start };
+    const { data } = useGoogleSearch(context);
 
     // Mock Api Call
     // const data = Response;
@@ -89,8 +93,8 @@ const SearchPage = () => {
                         </p>
 
                         {
-                            data?.items.map(item => (
-                                <div className="search_page_result">
+                            data?.items.map((item , i = 0 ) => (
+                                <div key={i} className="search_page_result">
                                     <a className='search_page_resultLink' href={item.link}>
                                         {item.link.slice(0, 8) + item.displayLink} <ExpandMoreIcon />
                                     </a>
@@ -106,6 +110,11 @@ const SearchPage = () => {
                                 </div>
                             ))
                         }
+
+                        <div className='pagination_button'>
+                            <PaginationButton />
+                        </div>
+
                     </div>
                 )
             }

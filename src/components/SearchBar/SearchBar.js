@@ -20,10 +20,14 @@ const SearchBar = ({ hideButtons = false }) => {
         dispatch({
             type: actionType.SET_SEARCH_TERM,
             term: Input,
-        })
+        });
+
+        if (!Input) return;
+
+        const startPage = 0;
 
         // Render the Search Result page
-        navigate('/search');
+        navigate(`/search?term=${Input}&start=${startPage}`);
     }
 
     return (
